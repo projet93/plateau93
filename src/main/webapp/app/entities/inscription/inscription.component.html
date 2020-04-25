@@ -1,0 +1,63 @@
+<div>
+    <h2 id="page-heading">
+        <span jhiTranslate="plateau93App.inscription.home.title">Inscriptions</span>
+    </h2>
+
+   
+
+    
+    <div class="alert alert-warning" id="no-result" *ngIf="inscriptions?.length === 0">
+        <span jhiTranslate="plateau93App.inscription.home.notFound">No inscriptions found</span>
+    </div>
+
+    <div class="table-responsive" id="entities" *ngIf="inscriptions?.length > 0">
+        <table class="table table-striped" aria-describedby="page-heading">
+            <thead>
+                <tr>
+                    <th scope="col" ><span jhiTranslate="global.field.id">ID</span></th>
+                    <th scope="col" ><span jhiTranslate="plateau93App.inscription.nombreEquipe">Nombre Equipe</span></th>
+                    <th scope="col" ><span jhiTranslate="plateau93App.inscription.club">Club</span></th>
+                    <th scope="col" ><span jhiTranslate="plateau93App.inscription.referent">Referent</span></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let inscription of inscriptions ;trackBy: trackId">
+                    <td><a [routerLink]="['/inscription', inscription.id, 'view']">{{ inscription.id }}</a></td>
+                    <td class="text-center">{{ inscription.nombreEquipe }}</td>
+                    
+                    <td>
+                        <div *ngIf="inscription.club">
+                            <a [routerLink]="['/club', inscription.club?.id, 'view']" >{{ inscription.club?.nom }}</a>
+                        </div>
+                    </td>
+                    <td>
+                        <div *ngIf="inscription.referent">
+                            <a [routerLink]="['/referent', inscription.referent?.id, 'view']" >{{ inscription.referent?.nom }}</a>
+                        </div>
+                    </td>
+                    <td class="text-right">
+                        <div class="btn-group" *ngIf="!currentAccount || currentAccount.login === inscription.club.user.login">
+                            <button type="submit"
+                                    [routerLink]="['/inscription', inscription.id, 'view']"
+                                    class="btn btn-info btn-sm">
+                                <fa-icon icon="eye"></fa-icon>
+                            </button>
+
+                            <button type="submit"
+                                    [routerLink]="['/inscription', inscription.id, 'edit']"
+                                    class="btn btn-primary btn-sm">
+                                <fa-icon icon="pencil-alt"></fa-icon>
+                            </button>
+
+                            <button type="submit" (click)="delete(inscription)"
+                                    class="btn btn-danger btn-sm">
+                                <fa-icon icon="times"></fa-icon>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="row justify-content-center">
+    <div class="col-8">
+        <div *ngIf="categorie">
+            <h2><span jhiTranslate="plateau93App.categorie.detail.title">Categorie</span> {{ categorie.id }}</h2>
+
+            <hr>
+
+            <jhi-alert-error></jhi-alert-error>
+
+            <dl class="row-md jh-entity-details">
+                <dt><span jhiTranslate="plateau93App.categorie.section">Section</span></dt>
+                <dd>
+                    <span jhiTranslate="{{ 'plateau93App.Section.' + categorie.section }}">{{ categorie.section }}</span>
+                </dd>
+                <dt><span jhiTranslate="plateau93App.categorie.descrition">Descrition</span></dt>
+                <dd>
+                    <span>{{ categorie.descrition }}</span>
+                </dd>
+                <dt><span jhiTranslate="plateau93App.categorie.user">User</span></dt>
+                <dd>
+                    {{ categorie.user?.id }}
+                </dd>
+            </dl>
+
+            <button type="submit"
+                    (click)="previousState()"
+                    class="btn btn-info">
+                <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Back</span>
+            </button>
+
+            <button type="button"
+                    [routerLink]="['/categorie', categorie.id, 'edit']"
+                    class="btn btn-primary">
+                <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Edit</span>
+            </button>
+        </div>
+    </div>
+</div>
