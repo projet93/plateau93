@@ -96,7 +96,7 @@ public class PlateauResource {
         inscription.setClub(clubService.findByUser().get());
         inscription.setNombreEquipe(result.getNombreEquipe());
         inscription.setReferent(result.getReferent());
-        inscriptionService.save(inscription);
+        inscriptionService.saveInit(inscription);
         return ResponseEntity.created(new URI("/api/plateaus/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);
