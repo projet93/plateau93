@@ -24,11 +24,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import fr.district.codemax.domain.Inscription;
 import fr.district.codemax.domain.Plateau;
 import fr.district.codemax.domain.enumeration.Statut;
 import fr.district.codemax.repository.UserRepository;
 import fr.district.codemax.security.AuthoritiesConstants;
 import fr.district.codemax.security.SecurityUtils;
+import fr.district.codemax.service.ClubService;
+import fr.district.codemax.service.InscriptionService;
 import fr.district.codemax.service.PlateauQueryService;
 import fr.district.codemax.service.PlateauService;
 import fr.district.codemax.service.dto.PlateauCriteria;
@@ -54,9 +57,15 @@ public class PlateauResource {
     @Autowired
     private UserRepository userRepository;
     
+    @Autowired
+    private ClubService clubService;
+    
     private final PlateauService plateauService;
 
     private final PlateauQueryService plateauQueryService;
+    
+    @Autowired
+    private InscriptionService inscriptionService;
 
     public PlateauResource(PlateauService plateauService, PlateauQueryService plateauQueryService) {
         this.plateauService = plateauService;
@@ -82,6 +91,12 @@ public class PlateauResource {
         }
         plateau.setStatut(Statut.ENATTENTE);
         Plateau result = plateauService.save(plateau);
+        Inscription inscription = new Inscription();
+        inscription.setPlateau(plateau);
+        inscription.setClub(clubService.findByUser().get());
+        inscription.setNombreEquipe(result.getNombreEquipe());
+        inscription.setReferent(result.getReferent());
+        inscriptionService.save(inscription);
         return ResponseEntity.created(new URI("/api/plateaus/" + result.getId()))
             .headers(HeaderUtil.createEntityCreationAlert(applicationName, true, ENTITY_NAME, result.getId().toString()))
             .body(result);

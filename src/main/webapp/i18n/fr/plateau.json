@@ -23,7 +23,9 @@
       "heureFin": "Heure Fin",
       "programme": "Programme",
       "nombreEquipeMax": "Nombre Equipe Max",
+      "nombreParticipant": "Nombre participant",
       "nombreEquipe": "Nombre Equipe",
+
       "statut": "Statut",
       "valid": "Valid",
       "version": "Version",

@@ -19,6 +19,14 @@ public interface InscriptionService {
     Inscription save(Inscription inscription);
     
     /**
+     * Save a inscription.
+     *
+     * @param inscription the entity to save.
+     * @return void.
+     */
+    void saveInit(Inscription inscription);
+    
+    /**
      * Update a inscription.
      *
      * @param inscription the entity to update.

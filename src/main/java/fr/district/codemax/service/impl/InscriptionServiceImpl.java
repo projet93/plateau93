@@ -75,6 +75,12 @@ public class InscriptionServiceImpl implements InscriptionService {
 	}
 
 	@Override
+	public void saveInit(Inscription inscription) {
+		log.debug("Request to save Inscription : {}", inscription);
+		Inscription result = inscriptionRepository.save(inscription);
+		inscriptionSearchRepository.save(result);
+	}
+	@Override
     @Transactional
     @Lock(LockModeType.PESSIMISTIC_WRITE)
     public Inscription update(Inscription inscription) {
@@ -164,4 +170,6 @@ public class InscriptionServiceImpl implements InscriptionService {
 		return StreamSupport.stream(inscriptionSearchRepository.search(queryStringQuery(query)).spliterator(), false)
 				.collect(Collectors.toList());
 	}
+
+	
 }
