@@ -1,10 +1,25 @@
-<div class="row">
+<div class="row" *ngIf="isAuthenticated()">
+    <div class="col-md-3">
+        <span class="img-fluid rounded">
+            <img [src]="'data:' + club.logoContentType + ';base64,' + club.logo" style="max-width: 80%;" alt="club image"/>
+        </span>
+    </div>
+    <div class="col-md-9" >
+        <h1 class="display-4">Welcome, {{titre}}</h1>       
+        
+        <agm-map [latitude]="lat" [longitude]="lng" style="height: 300px;">
+            <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
+        </agm-map>
+        
+        
+    </div>
+</div>
+<div class="row" *ngIf="!isAuthenticated()">
     <div class="col-md-3">
         <span class="hipster img-fluid rounded"></span>
     </div>
-
-    <div class="col-md-9">
-        <h1 class="display-4" jhiTranslate="home.title">Welcome, District 93</h1>       
+    <div class="col-md-9" >
+        <h1 class="display-4">Welcome, District 93</h1>       
         
         <agm-map [latitude]="lat" [longitude]="lng" style="height: 300px;">
             <agm-marker [latitude]="lat" [longitude]="lng"></agm-marker>
